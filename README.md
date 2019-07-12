@@ -10,7 +10,8 @@ Use logrotate to zip, create new and call s3 command
 		* to write S3 file
 	* AmazonEC2ReadOnlyAccess
 		* to get "Name" tag
-3. Put the config file at /etc/logrotate.d/
+3. Put the config file at /etc/logrotate.d/ as root (to make default logrotate work)
+	$sudo /etc/logrotate.d/server-log-conf
 4. Edit the config file
 	* line  1 change to the log file that you want to backup
 	* rotate: how many files (including .log and .gz) would you like to keep
