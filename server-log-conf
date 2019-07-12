@@ -14,19 +14,19 @@
     copytruncate
     dateformat -%Y-%m-%d-%s
 	
-	# Set AWS configuration, region, bucket
-	REGION=ap-southeast-1
-	S3_BUCKET=frontend-web-log	
-	AWS_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
-	EC2_NAME=$(aws ec2 describe-tags --region $REGION --filters "Name=resource-id,Values=$AWS_INSTANCE_ID" "Name=key,Values=Name" --output text | cut -f5)
-	
-	# Choose the log folder to sync to s3
-    LOG_FOLDER=/home/ubuntu/frontend-web/log
-    echo $BUCKET
-    echo $AWS_INSTANCE_ID
-    echo $EC2_NAME
+    lastaction
+		# Set AWS configuration, region, bucket
+		REGION=ap-southeast-1
+		S3_BUCKET=frontend-web-log	
+		AWS_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+		EC2_NAME=$(aws ec2 describe-tags --region $REGION --filters "Name=resource-id,Values=$AWS_INSTANCE_ID" "Name=key,Values=Name" --output text | cut -f5)
+			
+		# Choose the log folder to sync to s3
+		LOG_FOLDER=/home/ubuntu/frontend-web/log
+		echo $BUCKET
+		echo $AWS_INSTANCE_ID
+		echo $EC2_NAME
     
-	lastaction
         /usr/bin/aws s3 sync $LOG_FOLDER s3://$S3_BUCKET/$EC2_NAME --exclude "*" --include "*.gz"
 
     endscript
