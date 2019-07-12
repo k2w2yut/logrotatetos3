@@ -5,7 +5,7 @@
     daily
     missingok
     notifempty
-    create
+    maxage 7
 
     #default with .gz (gzip) if removed, please update the aws sync syntax
     compress
@@ -14,6 +14,10 @@
     copytruncate
     dateformat -%Y-%m-%d-%s
 	
+    #set the script to act as log owner
+    su ubunt ubuntu
+
+
     lastaction
 		# Set AWS configuration, region, bucket
 		REGION=ap-southeast-1
@@ -23,7 +27,7 @@
 			
 		# Choose the log folder to sync to s3
 		LOG_FOLDER=/home/ubuntu/frontend-web/log
-		echo $BUCKET
+		echo $S3_BUCKET
 		echo $AWS_INSTANCE_ID
 		echo $EC2_NAME
     
